@@ -9,18 +9,18 @@ I've refactored it into files and split up the operations. My hope is this will 
 
 After cloning this repo and navigating to its folder in your terminal:
 
-* `npm run testrpc` will start the development blockchain
-* `./build Voting` will compile the `Voting.sol` contract
-* `./deploy Voting` will deploy the Voting contract to the blockchain
-* `./vote Rama 1` will vote for Rama using the first account in the blockchain
-* `./showvotes` will show the current votes for each candidate
+1. `npm run testrpc` will start the development blockchain
+2. `./build Voting` will compile the `Voting.sol` contract
+3. `./deploy Voting` will deploy the Voting contract to the development blockchain
+4. `./vote Rama 1` will vote for Rama using the first account in the blockchain
+5. `./showvotes` will show the current votes for each candidate
 
 
 ## Starting over
 
-* Restart testrpc (CTRL-c and `npm run testrpc`)
-* `./clean` will remove all of the files created from building and deploying.
-* Follow the steps above to build, deploy and run the contracts
+1. Restart testrpc (CTRL-c and `npm run testrpc`)
+2. `./clean` will remove all of the files created from building and deploying.
+3. Follow the steps above to build, deploy and run the contracts
 
 
 ## Next?
