@@ -1,0 +1,5 @@
+rm *.abi.json 2> /dev/null
+rm *.bytecode 2> /dev/null
+rm *.address.js 2> /dev/null
+
+echo "Clean is done."

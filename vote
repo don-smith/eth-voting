@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+const web3 = require('./connection')
+const abi = require('./Voting.abi.json')
+const address = require('./Voting.address')
+
+const VotingContract = web3.eth.contract(abi)
+const contractInstance = VotingContract.at(address)
+
+let votes = 0
+const candidate = process.argv[2]
+const accountNumber = Number(process.argv[3])
+const account = web3.eth.accounts[accountNumber - 1]
+
+votes = contractInstance.totalVotesFor.call(candidate).toLocaleString()
+console.info(`Votes for ${candidate} before vote:`, votes)
+
+console.info(`Voting for ${candidate} with account number ${accountNumber}`)
+contractInstance.voteForCandidate(candidate, {from: account})
+
+votes = contractInstance.totalVotesFor.call(candidate).toLocaleString()
+console.info(`Votes for ${candidate} after vote:`, votes)
+

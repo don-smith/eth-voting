@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+const web3 = require('./connection')
+const abi = require('./Voting.abi.json')
+const address = require('./Voting.address')
+
+const VotingContract = web3.eth.contract(abi)
+const contractInstance = VotingContract.at(address)
+
+const candidates = ['Rama', 'Nick', 'Jose']
+candidates.forEach(candidate => {
+  const votes = contractInstance.totalVotesFor.call(candidate).toLocaleString()
+  console.info(candidate, votes)
+})
+

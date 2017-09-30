@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+
+const web3 = require('./connection')
+
+const contract = process.argv[2]
+
+if (!contract) {
+  console.error('ERROR: You must provide the name of a contract.')
+  process.exit(1)
+}
+
+const abi = require(`./${contract}.abi.json`)
+
+const Contract = web3.eth.contract(abi)
+const bytecode = fs.readFileSync(`${contract}.bytecode`)
+
+const deployedContract = Contract.new(
+  ['Rama','Nick','Jose'],
+  {data: bytecode, from: web3.eth.accounts[0], gas: 4700000},
+  saveAddress // Must get the address in a callback
+)
+
+function saveAddress (err, {address}) {
+  if (address) {
+    fs.writeFileSync(`${contract}.address.js`, `module.exports = "${address}"`)
+    console.info('Deploy is done.')
+  }
+}
+

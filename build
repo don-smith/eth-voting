@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+/*
+ * Compiles the contract and creates Contract.abi.json and Contract.bytecode
+ * files, which are used during the deployment process.
+ */
+
+const fs = require('fs')
+
+const solc = require('solc')
+
+const contract = process.argv[2]
+
+if (!contract) {
+  console.error('ERROR: You must provide the name of a contract.')
+  process.exit(1)
+}
+
+const code = fs.readFileSync(`${contract}.sol`).toString()
+const compiled = solc.compile(code)
+
+const abi = compiled.contracts[`:${contract}`].interface
+const bytecode = compiled.contracts[`:${contract}`].bytecode
+
+fs.writeFileSync(`${contract}.abi.json`, abi)
+fs.writeFileSync(`${contract}.bytecode`, bytecode)
+
+console.info('Build is done.')
+
